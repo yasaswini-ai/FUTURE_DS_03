@@ -1,0 +1,26 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+# Marketing Funnel Data
+data = {
+    "Stage": ["Visitors", "Leads", "Qualified Leads", "Customers"],
+    "Count": [1000, 400, 200, 80]
+}
+df = pd.DataFrame(data)
+# Calculate Conversion Rates
+df["Conversion Rate (%)"] = (
+    df["Count"] / df["Count"].shift(1) * 100
+)
+df.loc[0, "Conversion Rate (%)"] = 100
+print("Marketing Funnel Analysis")
+print(df)
+# Overall Conversion Rate
+overall_conversion = (80 / 1000) * 100
+print("\nOverall Conversion Rate:", round(overall_conversion, 2), "%")
+# Funnel Visualization
+plt.figure(figsize=(8, 5))
+plt.plot(df["Stage"], df["Count"], marker="o")
+plt.title("Marketing Funnel Performance")
+plt.xlabel("Funnel Stage")
+plt.ylabel("Number of Users")
+plt.grid(True)
+plt.show()
